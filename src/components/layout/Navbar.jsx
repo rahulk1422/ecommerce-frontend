@@ -1,27 +1,28 @@
 import { useState } from "react";
 import { Search, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const cartCount = 3; // abhi dummy value, baad me cart state se aayega
+  const cartCount = 3; 
 
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         
         {/* Logo */}
-        <div className="text-2xl font-bold text-primary">
+        <Link to="/" className="text-2xl font-bold text-primary">
           ShopEasy
-        </div>
+        </Link>
 
         {/* Desktop Menu - mobile pe hide hoga */}
         <div className="hidden md:flex gap-6 text-dark font-medium">
-          <a href="/">Home</a>
-          <a href="/shop">Shop</a>
-          <a href="/categories">Categories</a>
-          <a href="/deals">Deals</a>
-          <a href="/contact">Contact</a>
+          <Link to="/">Home</Link>
+          <Link to="/shop">Shop</Link>
+          <Link to="/categories">Categories</Link>
+          <Link to="/deals">Deals</Link>
+          <Link to="/contact">Contact</Link>
         </div>
 
         {/* Search bar - mobile pe hide hoga */}

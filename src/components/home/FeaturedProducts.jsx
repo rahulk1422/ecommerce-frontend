@@ -13,7 +13,7 @@ function FeaturedProducts() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-        {products.map((product) => (
+        {products.slice(0,16).map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
