@@ -8,6 +8,7 @@ function Shop() {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [sortBy, setSortBy] = useState("default");
   const [maxPrice, setMaxPrice] = useState(500)
+  const [minRating, setMinRating] = useState(0);
 
   const handleBrandToggle = (brand) => {
     if (selectedBrands.includes(brand)) {
@@ -22,14 +23,16 @@ function Shop() {
     setSelectedBrands([]);
     setSortBy("default");
     setMaxPrice(500);
+    setMinRating(0);
   };
 
   const filteredProducts = products.filter((product) => {
     const categoryMatch = selectedCategory === "All" || product.category === selectedCategory;
     const brandMatch   = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
     const priceMatch  = product.price <= maxPrice;
+    const ratingMatch = product.rating >= minRating;
 
-    return categoryMatch && brandMatch && priceMatch;
+    return categoryMatch && brandMatch && priceMatch && ratingMatch;
   });
 
   const sortedProducts =filteredProducts.slice();
@@ -57,10 +60,16 @@ function Shop() {
         <FilterSidebar
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
+
           selectedBrands={selectedBrands}
           onBrandToggle={handleBrandToggle}
+
           maxPrice = {maxPrice}
           onPriceChange = {setMaxPrice}
+
+          minRating = {minRating}
+          onRatingChange = {setMinRating}
+
           onClear={handleClear}
         />
 

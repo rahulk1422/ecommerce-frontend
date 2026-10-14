@@ -1,5 +1,6 @@
 import { products } from "../../data/products";
 import Button from "../common/Button";
+import Rating from "../common/Rating";
 
 const categories = ["All", ...new Set(products.map((p) => p.category))];
 const brands = [...new Set(products.map((p) => p.brand))];
@@ -11,6 +12,9 @@ function FilterSidebar({
     onBrandToggle,
     maxPrice,
     onPriceChange,
+
+    minRating,
+    onRatingChange,
     onClear,
 }) {
     return (
@@ -29,20 +33,20 @@ function FilterSidebar({
                     ))
                 }
             </ul>
-       
+
             <h3 className="font-semibold mb-3 text-dark">Price</h3>
             <div className="mb-6">
-                 <input type="range"
-                        min="0"
-                        max="500"
-                        value={maxPrice}
-                        onChange={(e) => onPriceChange(Number(e.target.value))}
-                        className="w-full accent-primary"
-                 />
-                 <div className="flex justify-between text-sm text-gray-500 mt-1">
+                <input type="range"
+                    min="0"
+                    max="500"
+                    value={maxPrice}
+                    onChange={(e) => onPriceChange(Number(e.target.value))}
+                    className="w-full accent-primary"
+                />
+                <div className="flex justify-between text-sm text-gray-500 mt-1">
                     <span>$ 0</span>
                     <span>Up to ${maxPrice}</span>
-                 </div>
+                </div>
             </div>
 
 
@@ -61,6 +65,34 @@ function FilterSidebar({
                         </label>
                     ))
                 }
+            </div>
+
+            <h3 className="font-semibold text-dark mb-3">Rating</h3>
+            <div className="space-y-2 mb-6">
+                {[4, 3, 2].map((stars) => (
+                    <label key={stars} className="flex items-center gap-2 text-sm cursor-pointer">
+                        <input
+                            type="radio"
+                            name="rating"
+                            checked={minRating === stars}
+                            onChange={() => onRatingChange(stars)}
+                            className="accent-primary"
+                        />
+                        <Rating value={stars} />
+                        <span>and up</span>
+                    </label>
+                ))}
+
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input
+                        type="radio"
+                        name="rating"
+                        checked={minRating === 0}
+                        onChange={() => onRatingChange(0)}
+                        className="accent-primary"
+                    />
+                    All ratings
+                </label>
             </div>
 
             <Button className="w-full" variant="outline" size="sm" onClick={onClear}>
