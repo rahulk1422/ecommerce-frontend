@@ -9,6 +9,8 @@ function FilterSidebar({
     onCategoryChange,
     selectedBrands,
     onBrandToggle,
+    maxPrice,
+    onPriceChange,
     onClear,
 }) {
     return (
@@ -27,6 +29,22 @@ function FilterSidebar({
                     ))
                 }
             </ul>
+       
+            <h3 className="font-semibold mb-3 text-dark">Price</h3>
+            <div className="mb-6">
+                 <input type="range"
+                        min="0"
+                        max="500"
+                        value={maxPrice}
+                        onChange={(e) => onPriceChange(Number(e.target.value))}
+                        className="w-full accent-primary"
+                 />
+                 <div className="flex justify-between text-sm text-gray-500 mt-1">
+                    <span>$ 0</span>
+                    <span>Up to ${maxPrice}</span>
+                 </div>
+            </div>
+
 
             <h3 className="font-semibold text-dark mb-3">Brand</h3>
             <div className="space-y-2 mb-6">
