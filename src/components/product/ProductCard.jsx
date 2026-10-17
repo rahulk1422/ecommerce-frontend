@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
 import Rating from "../common/Rating";
 
 function ProductCard({ product }) {
     return (
-        <div className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition cursor-pointer">
+        <Link
+             to={`/product/${product.id}`}
+             className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition block">
             <div className="bg-gray-50 rounded-lg h-40 flex items-center justify-center mb-3">
                 <img src={product.image} alt={product.name} className="h-full object-contain" />
             </div>
@@ -16,7 +19,7 @@ function ProductCard({ product }) {
                     <span className="text-gray-400 line-through text-sm">${product.oldPrice}</span>
                 )}
             </div>
-        </div>
+        </Link>
     );
 }
 

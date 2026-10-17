@@ -21,7 +21,7 @@ function Shop() {
     } else {
       setSelectedBrands([...selectedBrands, brand]);
     }
-    setCurrentPage(1);   // NEW
+    setCurrentPage(1);  
   };
 
   const handleClear = () => {
@@ -30,10 +30,10 @@ function Shop() {
     setSortBy("default");
     setMaxPrice(500);
     setMinRating(0);
-    setCurrentPage(1);   // NEW
+    setCurrentPage(1);   
   };
 
-  // NEW: category, price, rating aur sort ke liye
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
@@ -130,6 +130,7 @@ function Shop() {
             </p>
           ) : (
             <>
+            
               <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                 {visibleProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
