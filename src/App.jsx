@@ -4,10 +4,12 @@ import Home from "./pages/Home"
 import { Route } from "react-router-dom"
 import Shop from "./pages/Shop"
 import ProductDetails from "./pages/ProductDetails"
+import { Toaster } from "react-hot-toast"
 
 function App() {
   return (
     <div>
+      <Toaster position="top-right"/>
       <Navbar/>
       
       <Routes>

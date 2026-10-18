@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { Search, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCartStore } from "../../store/CartStore";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const cartCount = 3; 
+  const items = useCartStore((state) => state.items);
+
+  let cartCount = 0;
+
+  for(const item of items){
+    cartCount = cartCount + item.quantity;
+  }
 
   return (
     <nav className="bg-white border-b border-gray-200">

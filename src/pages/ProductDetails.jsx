@@ -4,10 +4,14 @@ import { products } from "../data/products";
 import Rating from "../components/common/Rating";
 import Button from "../components/common/Button";
 import Badge from "../components/common/Badge";
+import { useCartStore } from "../store/CartStore";
+import toast from "react-hot-toast";
 
 function ProductDetails(){
     const {id} = useParams();
     const [quantity, setQuantity] = useState(1);
+
+    const addToCart = useCartStore((state) => state.addToCart)
 
     const product = products.find((p) => p.id === Number(id));
 
@@ -24,6 +28,11 @@ function ProductDetails(){
     if(product.oldPrice){
         discountPercent = Math.round(((product.oldPrice - product.price)/ product.oldPrice) * 100);
     }
+
+    const handleAddToCart = () => {
+        addToCart(product, quantity);
+        toast.success("Added to cart");
+    };
 
     return(
           <div className="max-w-7xl mx-auto px-4 py-10">
@@ -87,7 +96,7 @@ function ProductDetails(){
                         </div>
                     </div>
 
-                    <Button size="lg" className="mt-6 w-full md:w-auto">
+                    <Button size="lg" className="mt-6 w-full md:w-auto" onClick={handleAddToCart}>
                         Add to Cart
                     </Button>
                 </div>
