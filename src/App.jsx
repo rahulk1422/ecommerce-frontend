@@ -5,6 +5,7 @@ import { Route } from "react-router-dom"
 import Shop from "./pages/Shop"
 import ProductDetails from "./pages/ProductDetails"
 import { Toaster } from "react-hot-toast"
+import Cart from "./pages/Cart"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/shop" element={<Shop/>}/>
         <Route path="/product/:id" element={<ProductDetails/>} />
+        <Route path="/cart" element={<Cart/>} />
       </Routes>
     </div>
   )

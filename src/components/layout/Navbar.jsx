@@ -47,14 +47,14 @@ function Navbar() {
           <User className="cursor-pointer" />
           <Heart className="cursor-pointer" />
           
-          <div className="relative cursor-pointer">
+          <Link to="/cart" className="relative cursor-pointer">
             <ShoppingCart />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-danger text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {cartCount}
               </span>
             )}
-          </div>
+          </Link>
 
           {/* Hamburger - sirf mobile pe dikhega */}
           <button 
