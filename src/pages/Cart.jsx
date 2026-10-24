@@ -116,9 +116,12 @@ function Cart(){
                         <span>${total.toFixed(2)}</span>
                     </div>
 
-                    <Button size="lg" className="w-full">
-                        Proceed to Checkout
-                    </Button>
+                    <Link to="/checkout" className="block">
+                       <Button size="lg" className="w-full">
+                          Proceed to Checkout
+                       </Button>
+                    </Link>
+                    
                 </div>
             </div>
 
