@@ -7,6 +7,7 @@ import ProductDetails from "./pages/ProductDetails"
 import { Toaster } from "react-hot-toast"
 import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
+import Login from "./pages/Login"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails/>} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/login" element={<Login/>} />
       </Routes>
     </div>
   )

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Search, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCartStore } from "../../store/CartStore";
+import { useAuthStore } from "../../store/authStore";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,9 @@ function Navbar() {
   for(const item of items){
     cartCount = cartCount + item.quantity;
   }
+
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <nav className="bg-white border-b border-gray-200">
@@ -44,7 +48,16 @@ function Navbar() {
 
         {/* Right icons */}
         <div className="flex items-center gap-4">
-          <User className="cursor-pointer" />
+          {user ? (
+                   <div className="flex items-center gap-2">
+                    <span className="hidden md:block text-sm font-medium">Hi, {user.name}</span>
+                    <button onClick={logout} className="text-sm text-primary font-medium">Logout</button>
+                   </div>
+                   )
+                : (
+                    <Link to="/login"> <User/> </Link>
+                )  
+          }
           <Heart className="cursor-pointer" />
           
           <Link to="/cart" className="relative cursor-pointer">
