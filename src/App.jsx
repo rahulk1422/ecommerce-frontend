@@ -9,22 +9,27 @@ import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+import Footer from "./components/layout/Footer"
 
 function App() {
   return (
-    <div>
-      <Toaster position="top-right"/>
-      <Navbar/>
-      
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/shop" element={<Shop/>}/>
-        <Route path="/product/:id" element={<ProductDetails/>} />
-        <Route path="/cart" element={<Cart/>} />
-        <Route path="/checkout" element={<Checkout/>}/>
-        <Route path="/login" element={<Login/>} />
-        <Route path="register" element={<Register/>} />
-      </Routes>
+    <div className="min-h-screen flex flex-col">
+      <Toaster position="top-right" />
+      <Navbar />
+
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Routes>
+      </main>
+
+      <Footer />
     </div>
   )
 }
