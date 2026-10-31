@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import Rating from "../common/Rating";
+import { useWishlistStore } from "../../store/wishlistStore";
+import { Heart } from "lucide-react";
 
 function ProductCard({ product }) {
+    const ids = useWishlistStore((state) => state.ids);
+    const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
+    const isWishlisted  = ids.includes(product.id);
     return (
-        <Link
+        <div className="relative">
+            <Link
              to={`/product/${product.id}`}
              className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition block">
             <div className="bg-gray-50 rounded-lg h-40 flex items-center justify-center mb-3">
@@ -20,6 +26,18 @@ function ProductCard({ product }) {
                 )}
             </div>
         </Link>
+        <button
+              onClick={() => toggleWishlist(product.id)}
+              className="absolute top-3 right-3 bg-white rounded-full p-2 shadow"
+              aria-label="Toggle wishlist"
+        >
+            <Heart  
+                 size={18}
+                 className={isWishlisted ? "text-danger" : "text-gray-400"}
+                 fill={isWishlisted ? "currentColor" : "none"}
+            />
+        </button>
+        </div>
     );
 }
 

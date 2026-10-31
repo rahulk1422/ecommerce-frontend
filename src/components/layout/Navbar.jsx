@@ -3,6 +3,7 @@ import { Search, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCartStore } from "../../store/CartStore";
 import { useAuthStore } from "../../store/authStore";
+import { useWishlistStore } from "../../store/wishlistStore";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +11,8 @@ function Navbar() {
   const items = useCartStore((state) => state.items);
 
   let cartCount = 0;
+
+  const wishlistCount = useWishlistStore((state) => state.ids.length);
 
   for(const item of items){
     cartCount = cartCount + item.quantity;
@@ -58,7 +61,16 @@ function Navbar() {
                     <Link to="/login"> <User/> </Link>
                 )  
           }
-          <Heart className="cursor-pointer" />
+          <Link to="/wishlist" className="relative">
+              <Heart/>
+              {
+                wishlistCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-danger text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                     {wishlistCount}
+                  </span>
+                )
+              }
+          </Link>
           
           <Link to="/cart" className="relative cursor-pointer">
             <ShoppingCart />
