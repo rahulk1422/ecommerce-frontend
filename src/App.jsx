@@ -11,6 +11,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Footer from "./components/layout/Footer"
 import Wishlist from "./pages/Wishlist"
+import NotFound from "./pages/NotFound"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/wishlist" element={<Wishlist/>} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </main>
 
