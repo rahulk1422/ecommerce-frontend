@@ -4,8 +4,9 @@ import { products } from "../data/products";
 import Rating from "../components/common/Rating";
 import Button from "../components/common/Button";
 import Badge from "../components/common/Badge";
-import { useCartStore } from "../store/CartStore";
+import { useCartStore } from "../store/cartStore";
 import toast from "react-hot-toast";
+import { useWishlistStore } from "../store/wishlistStore";
 
 function ProductDetails(){
     const {id} = useParams();
@@ -15,10 +16,14 @@ function ProductDetails(){
 
     const product = products.find((p) => p.id === Number(id));
 
+    const ids = useWishlistStore((state) => state.ids);
+    const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
+    const isWishlisted  = ids.includes(Number(id));
+
     if(!product){
         return(
             <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-                <p className="text-gray-500 mb-4">Products not found.</p>
+                <p className="text-gray-500 mb-4">Product not found.</p>
                 <Link to="/shop" className="text-primary font-medium"> Back to shop</Link>
             </div>
         );
@@ -96,9 +101,20 @@ function ProductDetails(){
                         </div>
                     </div>
 
-                    <Button size="lg" className="mt-6 w-full md:w-auto" onClick={handleAddToCart}>
+                    <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                        <Button size="lg" 
+                                onClick={handleAddToCart}>
                         Add to Cart
                     </Button>
+
+                    <Button
+                        size="lg"
+                        variant="outline"
+                        onClick={() => toggleWishlist(product.id)}
+                    >
+                        {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                    </Button>
+                    </div>
                 </div>
             </div>
           </div>
