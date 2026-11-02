@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-export const useWishlistStore = create((set) => ({
+export const useWishlistStore = create(persist((set) => ({
     ids: [],
 
     toggleWishlist: (id) => set((state) => {
@@ -11,4 +12,6 @@ export const useWishlistStore = create((set) => ({
         // else add kar do
         return { ids: [...state.ids, id]};
     }),
-}));
+}),
+ {name: "wishlist-storage"}
+));

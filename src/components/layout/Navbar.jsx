@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search, Heart, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useCartStore } from "../../store/CartStore";
+import { useCartStore } from "../../store/cartStore";
 import { useAuthStore } from "../../store/authStore";
 import { useWishlistStore } from "../../store/wishlistStore";
 

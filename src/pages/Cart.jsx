@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useCartStore } from "../store/CartStore";
+import { useCartStore } from "../store/cartStore";
 import Button from "../components/common/Button";
 
 function Cart(){
