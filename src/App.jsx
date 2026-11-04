@@ -12,29 +12,38 @@ import Register from "./pages/Register"
 import Footer from "./components/layout/Footer"
 import Wishlist from "./pages/Wishlist"
 import NotFound from "./pages/NotFound"
+import StoreLayout from "./components/layout/StoreLayout"
+import AdminLayout from "./components/layout/AdminLayout"
+import Dashboard from "./pages/admin/Dashboard"
+import AdminPlaceholder from "./pages/admin/AdminPlaceholder"
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Toaster position="top-right" />
-      <Navbar />
+    <>
+     <Toaster position="top-right"/>
+     <Routes>
+        {/* Storefront : Navbar + footer */}
+        <Route element = {<StoreLayout/>}>
+          <Route path="/" element= {<Home/>} />
+          <Route path="/shop" element= {<Shop/>} />
+          <Route path="/product/:id" element= {<ProductDetails/>} />
+          <Route path="/cart" element= {<Cart/>} />
+          <Route path="/checkout" element= {<Checkout/>} />
+          <Route path="/login" element= {<Login/>} />
+          <Route path="/register" element= {<Register/>} />
+          <Route path="/wishlist" element= {<Wishlist/>} />
+          <Route path="*" element= {<NotFound/>} />
+        </Route>
 
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/wishlist" element={<Wishlist/>} />
-          <Route path="*" element={<NotFound/>} />
-        </Routes>
-      </main>
-
-      <Footer />
-    </div>
+        {/* Admin: Sidebar + Topbar */}
+        <Route path="/admin" element={<AdminLayout/>}>
+           <Route index element={<Dashboard/>} />
+           <Route path="products" element={<AdminPlaceholder title="Products"/>}/>
+           <Route path="orders" element={<AdminPlaceholder title="Orders"/>}/>
+           <Route path="customers" element={<AdminPlaceholder title="Customers"/>}/>
+        </Route>
+     </Routes>
+    </>
   )
 }
 
