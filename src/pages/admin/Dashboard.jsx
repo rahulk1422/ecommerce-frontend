@@ -1,5 +1,7 @@
 import { stats } from "../../data/adminStats";
 import StatCard from "../../components/admin/StatCard";
+import SalesChart from "../../components/admin/SalesChart"; 
+import TopProducts from "../../components/admin/TopProducts";
 
 function Dashboard() {
   return (
@@ -19,6 +21,11 @@ function Dashboard() {
             bg={stat.bg}
           />
         ))}
+      </div>
+
+      <div className="grid lg:grid-cols-[1fr_340px] gap-4 mt-6">
+        <SalesChart/>
+        <TopProducts/>
       </div>
     </div>
   );

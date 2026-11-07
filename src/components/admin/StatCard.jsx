@@ -18,6 +18,7 @@ function StatCard({ title, value, change, bg}){
                 {Math.abs(change)}%
             </span>
         </div>
+        
     )
 }
 
