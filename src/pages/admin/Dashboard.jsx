@@ -1,7 +1,9 @@
 import { stats } from "../../data/adminStats";
 import StatCard from "../../components/admin/StatCard";
-import SalesChart from "../../components/admin/SalesChart"; 
+import SalesChart from "../../components/admin/SalesChart";
 import TopProducts from "../../components/admin/TopProducts";
+import RecentOrders from "../../components/admin/RecentOrders";
+import TopCustomers from "../../components/admin/TopCustomer";
 
 function Dashboard() {
   return (
@@ -23,9 +25,14 @@ function Dashboard() {
         ))}
       </div>
 
-      <div className="grid lg:grid-cols-[1fr_340px] gap-4 mt-6">
-        <SalesChart/>
-        <TopProducts/>
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-4 mt-6">
+        <SalesChart />
+        <TopProducts />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-4 mt-6">
+        <RecentOrders />
+        <TopCustomers />
       </div>
     </div>
   );
