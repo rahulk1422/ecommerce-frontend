@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { products } from "../data/products";
+import { useEffect, useState } from "react";
 import ProductCard from "../components/product/ProductCard";
 import FilterSidebar from "../components/product/FilterSidebar";
 import Pagination from "../components/common/Pagination";
+import { getProducts } from "../services/productService";
 
 function Shop() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -11,9 +11,24 @@ function Shop() {
   const [maxPrice, setMaxPrice] = useState(500)
   const [minRating, setMinRating] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const itemsPerPage = 6;
 
  
+  useEffect(() =>{
+    getProducts().then((data) =>  setProducts(data))
+                 .catch(() => setError("Could not load products. Please try again."))
+                 .finally(() => setLoading(false));
+  }, [])
+
+  if(loading){
+    return <p className="text-center text-gray-500 py-20">Loading products...</p>
+  }
+  if(error){
+    return <p className="text-center text-danger py-20">{error}</p>
+  }
 
   const handleBrandToggle = (brand) => {
     if (selectedBrands.includes(brand)) {
