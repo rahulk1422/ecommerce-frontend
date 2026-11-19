@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
-import { products } from "../data/products";
 import { useWishlistStore } from "../store/wishlistStore";
 import Button from "../components/common/Button";
 import ProductCard from "../components/product/ProductCard";
+import { useEffect, useState } from "react";
+import { getProducts } from "../services/productService";
 
 function Wishlist() {
     const ids = useWishlistStore((state) => state.ids);
-    const wishlistProducts = products.filter((product) => ids.includes(product.id));
+    const [allProducts, setAllProducts] = useState([]);
+
+    useEffect(() => {
+        getProducts()
+         .then((data) => setAllProducts(data))
+         .catch(() => setAllProducts([]));
+    }, []);
+    
+    const wishlistProducts = allProducts.filter((product) => ids.includes(product.id));
 
     if(wishlistProducts.length === 0){
         return (

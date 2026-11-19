@@ -1,30 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { products } from "../data/products";
 import Rating from "../components/common/Rating";
 import Button from "../components/common/Button";
 import Badge from "../components/common/Badge";
 import { useCartStore } from "../store/cartStore";
 import toast from "react-hot-toast";
 import { useWishlistStore } from "../store/wishlistStore";
+import { getProductById } from "../services/productService";
 
 function ProductDetails(){
     const {id} = useParams();
     const [quantity, setQuantity] = useState(1);
 
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        getProductById(id)
+         .then((data) => setProduct(data))
+         .catch(() => setError("Product not found."))
+         .finally(() => setLoading(false))
+    }, [id]);
+
     const addToCart = useCartStore((state) => state.addToCart)
 
-    const product = products.find((p) => p.id === Number(id));
 
     const ids = useWishlistStore((state) => state.ids);
     const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
     const isWishlisted  = ids.includes(Number(id));
 
-    if(!product){
-        return(
+    if(loading){
+        return <p className="text-center text-gray-500 py-20">Loading...</p>
+    }
+
+    if(error || !product){
+        return (
             <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-                <p className="text-gray-500 mb-4">Product not found.</p>
-                <Link to="/shop" className="text-primary font-medium"> Back to shop</Link>
+                <p className="text-gray-500 mb-4">{error || "Product not found."}</p>
+                <Link to="/shop" className="text-primary font-medium ">Back to Shop</Link>
             </div>
         );
     }
