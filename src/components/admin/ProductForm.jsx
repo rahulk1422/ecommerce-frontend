@@ -13,6 +13,7 @@ function ProductForm({ product, onSave, onClose }) {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -24,6 +25,20 @@ function ProductForm({ product, onSave, onClose }) {
         }
     });
 
+    const submitForm = async (data) => {
+        const serverErrors = await onSave(data);
+
+        if(serverErrors){
+            const fields = ["name", "price", "stock", "category", "brand"];
+
+            for(const field of fields){
+                if(serverErrors[field]){
+                    setError(field, {type: "server", message:serverErrors[field]});
+                }
+            }
+        };
+    }
+
     return (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
@@ -32,7 +47,7 @@ function ProductForm({ product, onSave, onClose }) {
                     <button onClick={onClose} aria-label="Close"> <X size={20}/> </button>
                 </div>
 
-                <form onSubmit={handleSubmit(onSave)}>
+                <form onSubmit={handleSubmit(submitForm)}>
                     <div className="mb-4">
                         <label className="block text-sm font-medium mb-1">
                             Product Name <span className="text-danger">*</span>
